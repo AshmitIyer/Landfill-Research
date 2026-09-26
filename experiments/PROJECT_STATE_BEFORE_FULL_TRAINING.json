@@ -1,0 +1,65 @@
+{
+    "last_updated": "2026-08-17T15:01:26.649733",
+    "PROJECT_STATUS": "FULL DATASET TRAINING NOT STARTED",
+    "CURRENT_STAGE": {
+        "full_dataset_images": "NOT PRESENT IN CURRENT RUNTIME",
+        "training_json": "BACKED UP TO GOOGLE DRIVE",
+        "testing_json": "BACKED UP TO GOOGLE DRIVE",
+        "full_dataset_download": "NEEDS TO BE RESTORED/DOWNLOADED TOMORROW"
+    },
+    "BASELINE_EXPERIMENT": {
+        "model": "Swin-Tiny",
+        "dataset": "AerialWaste v3.0 subset",
+        "training_images": 400,
+        "validation_images": 100,
+        "test_images": 200,
+        "best_epoch": 5,
+        "validation_f1": 0.8831168831,
+        "test_accuracy_threshold_050": 0.87,
+        "test_f1_threshold_050": 0.803,
+        "test_accuracy_threshold_045": 0.875,
+        "test_precision_threshold_045": 0.7397,
+        "test_recall_threshold_045": 0.9,
+        "test_f1_threshold_045": 0.812,
+        "test_roc_auc": 0.9626
+    },
+    "FULL_DATASET": {
+        "training_images": 9096,
+        "validation_images": 1820,
+        "test_images": 2607,
+        "total_images": 11703,
+        "split_seed": 42,
+        "validation_fraction": 0.2
+    },
+    "FULL_MODEL_PLAN": {
+        "architecture": "swin_tiny_patch4_window7_224",
+        "pretrained": true,
+        "optimizer": "AdamW",
+        "learning_rate": 0.0001,
+        "weight_decay": 0.0001,
+        "scheduler": "CosineAnnealingLR",
+        "epochs": 20,
+        "early_stopping_patience": 5,
+        "batch_size": 32,
+        "input_size": 224,
+        "target": "is_candidate_location",
+        "gpu": "Tesla T4"
+    },
+    "NEXT_STEP_TOMORROW": [
+        "Mount Google Drive",
+        "Verify Tesla T4 CUDA availability",
+        "Restore/download full AerialWaste image archives",
+        "Verify 11703 PNG images",
+        "Build full-data DataLoaders",
+        "Train full-data Swin-Tiny",
+        "Save checkpoints directly to Google Drive",
+        "Select threshold using validation only",
+        "Evaluate once on untouched 2607-image test set",
+        "Back up all metrics, predictions, confusion matrix and model"
+    ],
+    "IMPORTANT_BACKUPS": {
+        "subset_checkpoint": "/content/drive/MyDrive/landfill_research/checkpoints/swin_tiny_subset_best.pth",
+        "training_json": "/content/drive/MyDrive/landfill_research/training.json",
+        "testing_json": "/content/drive/MyDrive/landfill_research/testing.json"
+    }
+}

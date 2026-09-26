@@ -1,0 +1,19 @@
+{
+  "experiment": "R50-01",
+  "model": "ResNet-50",
+  "pretrained": "ImageNet",
+  "seed": 42,
+  "image_size": 224,
+  "batch_size": 16,
+  "learning_rate": 0.001,
+  "optimizer": "SGD",
+  "momentum": 0.9,
+  "weight_decay": 0.0001,
+  "max_epochs": 11,
+  "early_stopping_patience": 4,
+  "selection_metric": "validation_f1",
+  "decision_threshold": 0.5,
+  "train_csv": "/content/drive/MyDrive/landfill_research/experiments/locked_split_seed42/train_split.csv",
+  "val_csv": "/content/drive/MyDrive/landfill_research/experiments/locked_split_seed42/val_split.csv",
+  "test_csv": "/content/drive/MyDrive/landfill_research/experiments/locked_split_seed42/test_split.csv"
+}

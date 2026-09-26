@@ -1,0 +1,13 @@
+{
+  "dataset": "AerialWaste v3.0",
+  "seed": 42,
+  "split_method": "sklearn.model_selection.train_test_split",
+  "stratified": true,
+  "validation_fraction": 0.2,
+  "train_images": 7276,
+  "validation_images": 1820,
+  "test_images": 2607,
+  "target": "is_candidate_location",
+  "image_root": "/content/drive/MyDrive/landfill_research/datasets/AerialWaste/Extracted",
+  "split_note": "Reconstructed using original notebook split code. Original manifest order preserved."
+}

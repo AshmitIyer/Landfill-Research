@@ -1,0 +1,34 @@
+{
+  "environment": {
+    "gpu": "Tesla T4",
+    "cuda": "12.8",
+    "pytorch": "2.11.0+cu128"
+  },
+  "configuration": {
+    "input_size": 224,
+    "batch_size": 16,
+    "warmup_iterations": 20,
+    "benchmark_iterations": 100,
+    "repeats": 10
+  },
+  "swin_tiny": {
+    "model": "Swin-Tiny",
+    "n_repeats": 10,
+    "batch_latency_ms_mean": 72.09380298899669,
+    "batch_latency_ms_std": 3.4908440905995946,
+    "per_image_latency_ms_mean": 4.505862686812293,
+    "per_image_latency_ms_std": 0.21817775566247466,
+    "throughput_mean": 222.40005703283708,
+    "throughput_std": 10.721778551137966
+  },
+  "resnet50": {
+    "model": "ResNet-50",
+    "n_repeats": 10,
+    "batch_latency_ms_mean": 48.401261333998264,
+    "batch_latency_ms_std": 0.21511309924398533,
+    "per_image_latency_ms_mean": 3.0250788333748915,
+    "per_image_latency_ms_std": 0.013444568702749083,
+    "throughput_mean": 330.57575750417107,
+    "throughput_std": 1.4650241233652161
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "experiment": "R50-01",
+  "model": "ResNet-50",
+  "checkpoint_epoch": 11,
+  "validation_best_f1": 0.8732394366197183,
+  "decision_threshold": 0.5,
+  "test_size": 2607,
+  "test_accuracy": 0.9194476409666283,
+  "test_precision": 0.8774341351660939,
+  "test_recall": 0.8814729574223246,
+  "test_f1": 0.8794489092996556,
+  "test_roc_auc": 0.9713326032461952,
+  "confusion_matrix": [
+    [
+      1631,
+      107
+    ],
+    [
+      103,
+      766
+    ]
+  ]
+}

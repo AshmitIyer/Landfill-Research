@@ -1,0 +1,88 @@
+{
+  "dataset": "AerialWaste v3.0",
+  "test_samples": 2607,
+  "bootstrap_iterations": 10000,
+  "bootstrap_seed": 42,
+  "swin_metrics": {
+    "accuracy": 0.9259685462217108,
+    "precision": 0.8673913043478261,
+    "recall": 0.9182968929804373,
+    "f1": 0.8921185019564002,
+    "roc_auc": 0.9783658716485624
+  },
+  "resnet50_metrics": {
+    "accuracy": 0.9194476409666283,
+    "precision": 0.8774341351660939,
+    "recall": 0.8814729574223246,
+    "f1": 0.8794489092996556,
+    "roc_auc": 0.9713326032461952
+  },
+  "bootstrap_results": [
+    {
+      "metric": "accuracy",
+      "swin_value": 0.9259685462217108,
+      "swin_ci_lower": 0.9159953970080552,
+      "swin_ci_upper": 0.9359416954353663,
+      "resnet50_value": 0.9194476409666283,
+      "resnet50_ci_lower": 0.9090909090909091,
+      "resnet50_ci_upper": 0.9298043728423475
+    },
+    {
+      "metric": "precision",
+      "swin_value": 0.8673913043478261,
+      "swin_ci_lower": 0.8454535762744718,
+      "swin_ci_upper": 0.8887677502702728,
+      "resnet50_value": 0.8774341351660939,
+      "resnet50_ci_lower": 0.8549707602339182,
+      "resnet50_ci_upper": 0.8985861144539476
+    },
+    {
+      "metric": "recall",
+      "swin_value": 0.9182968929804373,
+      "swin_ci_lower": 0.8998768204910523,
+      "swin_ci_upper": 0.9357065107097393,
+      "resnet50_value": 0.8814729574223246,
+      "resnet50_ci_lower": 0.8595638245776315,
+      "resnet50_ci_upper": 0.9024117218784128
+    },
+    {
+      "metric": "f1",
+      "swin_value": 0.8921185019564002,
+      "swin_ci_lower": 0.8769056657017495,
+      "swin_ci_upper": 0.90712884552875,
+      "resnet50_value": 0.8794489092996556,
+      "resnet50_ci_lower": 0.8628313567314831,
+      "resnet50_ci_upper": 0.8949828659366995
+    },
+    {
+      "metric": "roc_auc",
+      "swin_value": 0.9783658716485624,
+      "swin_ci_lower": 0.9737198091044935,
+      "swin_ci_upper": 0.9827524641182205,
+      "resnet50_value": 0.9713326032461952,
+      "resnet50_ci_lower": 0.965591123102259,
+      "resnet50_ci_upper": 0.9767017919488292
+    }
+  ],
+  "mcnemar": {
+    "test": "Exact McNemar test",
+    "dataset": "AerialWaste v3.0",
+    "n_samples": 2607,
+    "contingency_table": [
+      [
+        2308,
+        106
+      ],
+      [
+        89,
+        104
+      ]
+    ],
+    "swin_correct_r50_correct": 2308,
+    "swin_correct_r50_wrong": 106,
+    "swin_wrong_r50_correct": 89,
+    "both_wrong": 104,
+    "statistic": 89.0,
+    "p_value": 0.25182239587374905
+  }
+}

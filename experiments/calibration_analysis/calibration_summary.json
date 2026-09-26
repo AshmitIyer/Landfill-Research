@@ -1,0 +1,22 @@
+{
+  "dataset": "AerialWaste v3.0",
+  "test_samples": 2607,
+  "calibration_method": "Binary probability calibration using raw P(candidate)",
+  "decision_thresholds": {
+    "swin_tiny": 0.45,
+    "resnet50": 0.5
+  },
+  "n_bins": 10,
+  "swin_tiny": {
+    "ece": 0.028599513022631362,
+    "brier_score": 0.05525264458997071,
+    "calibration_slope": 0.6848820763645045,
+    "calibration_intercept": -0.2844638176737101
+  },
+  "resnet50": {
+    "ece": 0.029310229915194018,
+    "brier_score": 0.06089438138218208,
+    "calibration_slope": 0.7147542428984038,
+    "calibration_intercept": 0.1285078221349747
+  }
+}

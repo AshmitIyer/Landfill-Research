@@ -1,0 +1,45 @@
+{
+  "environment": {
+    "device": "cuda",
+    "gpu": "Tesla T4",
+    "cuda": "12.8",
+    "pytorch": "2.11.0+cu128"
+  },
+  "configuration": {
+    "input_size": 224,
+    "batch_size": 16,
+    "warmup_iterations": 20,
+    "benchmark_iterations": 100,
+    "paired_rounds": 20
+  },
+  "swin_tiny": {
+    "model": "Swin-Tiny",
+    "n_rounds": 20,
+    "batch_latency_mean_ms": 74.41452662700158,
+    "batch_latency_std_ms": 1.7005840762924922,
+    "batch_latency_median_ms": 74.1514034750071,
+    "per_image_latency_mean_ms": 4.650907914187599,
+    "per_image_latency_std_ms": 0.10628650476828076,
+    "per_image_latency_median_ms": 4.634462717187944,
+    "throughput_mean_images_per_second": 215.11520786612536,
+    "throughput_std_images_per_second": 4.766952741958,
+    "throughput_median_images_per_second": 215.77476530316292
+  },
+  "resnet50": {
+    "model": "ResNet-50",
+    "n_rounds": 20,
+    "batch_latency_mean_ms": 48.744642539501,
+    "batch_latency_std_ms": 0.483798501906719,
+    "batch_latency_median_ms": 48.677942369995435,
+    "per_image_latency_mean_ms": 3.0465401587188126,
+    "per_image_latency_std_ms": 0.03023740636916994,
+    "per_image_latency_median_ms": 3.0423713981247147,
+    "throughput_mean_images_per_second": 328.2714925126362,
+    "throughput_std_images_per_second": 3.2130452068850777,
+    "throughput_median_images_per_second": 328.6909877500085
+  },
+  "relative_comparison": {
+    "swin_to_resnet_latency_ratio": 1.5266195985886772,
+    "resnet_to_swin_throughput_ratio": 1.5260264291352774
+  }
+}

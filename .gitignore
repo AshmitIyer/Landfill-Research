@@ -1,0 +1,36 @@
+
+# ============================================================
+# AerialWaste Landfill Research
+# ============================================================
+
+# Dataset images / archives
+datasets/
+AerialWaste_full/
+*.png
+*.jpg
+*.jpeg
+*.zip
+*.tar
+*.tar.gz
+
+# Model weights / checkpoints
+*.pth
+*.pt
+*.ckpt
+*.bin
+*.safetensors
+
+# Python / Colab
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Secrets
+.env
+*.token
+token.txt
+credentials.json
+
+# Temporary
+tmp/
+temp/
