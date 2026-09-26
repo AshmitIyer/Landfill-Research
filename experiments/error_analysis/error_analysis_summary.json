@@ -1,0 +1,14 @@
+{
+  "n_test_samples": 2607,
+  "swin_errors": 193,
+  "swin_accuracy": 0.9259685462217108,
+  "swin_error_rate": 0.07403145377828924,
+  "r50_errors": 210,
+  "r50_accuracy": 0.9194476409666283,
+  "r50_error_rate": 0.08055235903337166,
+  "both_correct": 2308,
+  "both_wrong": 104,
+  "swin_correct_r50_wrong": 106,
+  "r50_correct_swin_wrong": 89,
+  "model_disagreements": 195
+}

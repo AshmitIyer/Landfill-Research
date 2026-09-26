@@ -1,0 +1,2 @@
+total_samples,disagreements,agreement,disagreement_rate,swin_correct_r50_wrong,r50_correct_swin_wrong,both_wrong
+2607,195,2412,0.07479861910241657,106,89,104

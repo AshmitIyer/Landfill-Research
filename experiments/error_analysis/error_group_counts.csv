@@ -1,0 +1,5 @@
+error_group,count,percentage
+both_correct,2308,88.53087840429613
+swin_correct_r50_wrong,106,4.065976217874952
+both_wrong,104,3.9892596854622173
+r50_correct_swin_wrong,89,3.413885692366705

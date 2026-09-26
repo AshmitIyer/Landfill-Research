@@ -1,0 +1,11 @@
+{
+  "test_samples": 2607,
+  "both_wrong": 104,
+  "swin_correct_r50_wrong": 106,
+  "r50_correct_swin_wrong": 89,
+  "selected_examples": 24,
+  "selected_images_found": 0,
+  "shared_error_images_found": 0,
+  "swin_only_images_found": 0,
+  "r50_only_images_found": 0
+}
