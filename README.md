@@ -45,7 +45,7 @@ The repository contains experiment metadata and analysis outputs, but **not the 
 - `experiments/` — frozen experimental results, predictions, statistical analysis, calibration, efficiency benchmarking, and error analysis.
 - `results/` — human-readable results summary.
 - `analysis/` — reproducibility and methodological notes.
-- `paper/` — paper-related material when added to the repository.
+- `paper/` — reserved for the final manuscript and LaTeX source; the current connector session cannot upload the locally generated binary manuscript/figure bundle.
 - `project_handoff/` — canonical project handoff document.
 - `security/` — public-repository security notes.
 
@@ -73,7 +73,7 @@ The dataset and large model artifacts are intentionally excluded. They must be o
 
 ## Paper
 
-The final manuscript and complete LaTeX/figure package are maintained as release artifacts for the study. Where binary paper artifacts are not present in this GitHub snapshot, the repository's experiment outputs and source documentation remain the authoritative reproducibility record.
+The final manuscript and figure package were generated during the project. The current public GitHub snapshot contains the experiment record and reproducibility documentation; the locally generated PDF/DOCX/PNG bundle still needs to be uploaded as binary files before this repository can be considered the complete archival paper package.
 
 ## Citation
 
