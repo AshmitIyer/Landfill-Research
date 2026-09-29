@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+title: "A Reproducible Comparative Evaluation of Swin-Tiny and ResNet-50 for Landfill-Candidate Classification in Aerial Imagery"
+message: "If you use this repository, please cite the associated manuscript."
+type: software
+authors:
+  - family-names: Iyer
+    given-names: Ashmit
+  - family-names: Sharma
+    given-names: Sarthak
+repository-code: "https://github.com/AshmitIyer/Landfill-Research"
+keywords:
+  - AerialWaste
+  - landfill detection
+  - remote sensing
+  - aerial imagery
+  - Swin Transformer
+  - ResNet-50
+  - computer vision
+license: "NOASSERTION"
