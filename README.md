@@ -20,7 +20,7 @@ The exact paired McNemar test gave **p = 0.2518**. The study therefore reports t
 
 ### Inference efficiency
 
-Tesla T4, 224x224 input, batch size 16, interleaved paired benchmark:
+Tesla T4, 224×224 input, batch size 16, interleaved paired benchmark:
 
 | Metric | Swin-Tiny | ResNet-50 |
 |---|---:|---:|
@@ -45,7 +45,9 @@ The repository contains experiment metadata and analysis outputs, but **not the 
 - `experiments/` — frozen experimental results, predictions, statistical analysis, calibration, efficiency benchmarking, and error analysis.
 - `results/` — human-readable results summary.
 - `analysis/` — reproducibility and methodological notes.
-- `paper/` — reserved for the final manuscript and LaTeX source; the current connector session cannot upload the locally generated binary manuscript/figure bundle.
+- `paper/latex/` — current manuscript LaTeX source, bibliography, and table source files.
+- `paper/latex/figures/` — manuscript figure location; binary figure upload is the remaining GitHub-connector limitation for this session.
+- `paper/final/` — manuscript PDF/DOCX archival location; binary upload is likewise pending manual GitHub upload.
 - `project_handoff/` — canonical project handoff document.
 - `security/` — public-repository security notes.
 
@@ -68,12 +70,18 @@ See:
 - [Results summary](results/RESULTS.md)
 - [Reproducibility notes](analysis/REPRODUCIBILITY.md)
 - [Canonical project handoff](project_handoff/AerialWaste_Landfill_Research_Master_Handoff.docx)
+- [Current manuscript source](paper/latex/main.tex)
+- [Bibliography source](paper/latex/references.bib)
 
 The dataset and large model artifacts are intentionally excluded. They must be obtained through their appropriate distribution channels.
 
-## Paper
+## Paper status
 
-The final manuscript and figure package were generated during the project. The current public GitHub snapshot contains the experiment record and reproducibility documentation; the locally generated PDF/DOCX/PNG bundle still needs to be uploaded as binary files before this repository can be considered the complete archival paper package.
+**Current status: research results frozen; manuscript is a current draft and may still change before submission/publication.**
+
+The LaTeX source, bibliography, and table source files are now included in the repository. The current draft PDF and PNG figures were uploaded in this ChatGPT session, but the connected GitHub interface available here cannot write binary blobs. Therefore, the **only remaining repository action is manual upload of the binary paper/figure files through GitHub's web interface**.
+
+Once the manuscript is published, replace the draft PDF with the accepted/published version and update `CITATION.cff` with the DOI/publication metadata.
 
 ## Citation
 

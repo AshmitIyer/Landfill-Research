@@ -1,0 +1,18 @@
+\begin{table}[t]
+\caption{Inference Efficiency and Calibration}
+\label{tab:efficiency_calibration}
+\centering
+\begin{tabular}{lcc}
+\hline
+Metric & Swin-Tiny & ResNet-50 \\
+\hline
+Parameters (M) & 27.52 & 23.51 \\
+Latency (ms/image) & 4.651 $\pm$ 0.106 & 3.047 $\pm$ 0.030 \\
+Median latency (ms) & 4.634 & 3.042 \\
+Throughput (img/s) & 215.1 $\pm$ 4.8 & 328.3 $\pm$ 3.2 \\
+Median throughput (img/s) & 215.8 & 328.7 \\
+ECE & 0.0286 & 0.0293 \\
+Brier score & 0.0553 & 0.0609 \\
+\hline
+\end{tabular}
+\end{table}
