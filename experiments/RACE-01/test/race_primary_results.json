@@ -1,0 +1,22 @@
+{
+  "tau": 0.9,
+  "n": 2607,
+  "swin_invoked": 502,
+  "invoke_rate": 0.1925584963559647,
+  "auto_accepted": 2315,
+  "coverage": 0.887993862677407,
+  "referred": 292,
+  "referral_rate": 0.11200613732259301,
+  "selective_accuracy": 0.96414686825054,
+  "selective_risk": 0.03585313174946003,
+  "auto_candidate_fn": 36,
+  "auto_candidate_fn_rate": 0.04142692750287687,
+  "auto_candidate_recall": 0.7848101265822784,
+  "auto_fp": 47,
+  "auto_tn": 1550,
+  "expected_latency_ms": 3.942111851169927,
+  "compute_savings_vs_both": 0.4878676866449858,
+  "policy": "RACE core",
+  "threshold_source": "validation-only",
+  "test_set_used_for_threshold_selection": false
+}

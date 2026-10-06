@@ -1,0 +1,72 @@
+{
+  "experiment": "RACE-01",
+  "selected_tau": 0.9,
+  "selection_rule": "highest coverage subject to automatic candidate-FNR <= 5% on validation",
+  "candidate_fnr_constraint": 0.05,
+  "test_result": {
+    "tau": 0.9,
+    "n": 2607,
+    "swin_invoked": 502,
+    "invoke_rate": 0.1925584963559647,
+    "auto_accepted": 2315,
+    "coverage": 0.887993862677407,
+    "referred": 292,
+    "referral_rate": 0.11200613732259301,
+    "selective_accuracy": 0.96414686825054,
+    "selective_risk": 0.03585313174946003,
+    "auto_candidate_fn": 36,
+    "auto_candidate_fn_rate": 0.04142692750287687,
+    "auto_candidate_recall": 0.7848101265822784,
+    "auto_fp": 47,
+    "auto_tn": 1550,
+    "expected_latency_ms": 3.942111851169927,
+    "compute_savings_vs_both": 0.4878676866449858,
+    "policy": "RACE core",
+    "threshold_source": "validation-only",
+    "test_set_used_for_threshold_selection": false
+  },
+  "bootstrap_95_ci": [
+    {
+      "metric": "coverage",
+      "estimate_bootstrap_mean": 0.8877201764480246,
+      "ci_low_95": 0.8753356348293058,
+      "ci_high_95": 0.8998849252013809
+    },
+    {
+      "metric": "selective_accuracy",
+      "estimate_bootstrap_mean": 0.964193621866975,
+      "ci_low_95": 0.9565754106151059,
+      "ci_high_95": 0.9712948000955914
+    },
+    {
+      "metric": "auto_candidate_fn_rate",
+      "estimate_bootstrap_mean": 0.04148340118425084,
+      "ci_low_95": 0.02886586876157724,
+      "ci_high_95": 0.05530498523672652
+    },
+    {
+      "metric": "referral_rate",
+      "estimate_bootstrap_mean": 0.11227982355197545,
+      "ci_low_95": 0.1001150747986191,
+      "ci_high_95": 0.12466436517069429
+    },
+    {
+      "metric": "invoke_rate",
+      "estimate_bootstrap_mean": 0.19274990410433449,
+      "ci_low_95": 0.17721518987341772,
+      "ci_high_95": 0.20791139240506323
+    },
+    {
+      "metric": "expected_latency_ms",
+      "estimate_bootstrap_mean": 3.9430020709980824,
+      "ci_low_95": 3.8707515443037974,
+      "ci_high_95": 4.013516758227848
+    }
+  ],
+  "n_test": 2607,
+  "n_candidates": 869,
+  "n_noncandidates": 1738,
+  "latency_r50_ms": 3.04654,
+  "latency_swin_ms": 4.650908,
+  "always_both_latency_ms": 7.697448
+}
