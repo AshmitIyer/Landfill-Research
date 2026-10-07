@@ -1,12 +1,50 @@
-# A Reproducible Comparative Evaluation of Swin-Tiny and ResNet-50 for Landfill-Candidate Classification in Aerial Imagery
+# Risk-Aware Adaptive Cascade for Landfill-Candidate Classification in Aerial Imagery
 
-Research repository for a controlled comparison of ImageNet-pretrained Swin-Tiny and ResNet-50 on the AerialWaste landfill-candidate classification task.
+Research repository for a reproducible, risk-aware inference pipeline for image-level landfill-candidate screening from aerial imagery. The current research direction, **RACE (Risk-Aware Adaptive Cascade)**, uses frozen ImageNet-pretrained ResNet-50 and Swin-Tiny backbones and adds confidence-based selective escalation and human referral.
 
-## Study
+## Current research direction: RACE-01
 
-The study evaluates binary image-level classification of **landfill candidates vs. non-candidates** from aerial imagery. The experimental protocol uses a locked train/validation/test split and reports predictive performance, bootstrap confidence intervals, paired McNemar testing, calibration, inference efficiency, and structured metadata-based error analysis.
+RACE treats the task as **landfill-candidate vs. non-candidate** screening. ResNet-50 is used as a faster first-stage model. When its confidence is below a threshold, Swin-Tiny is invoked. After escalation, an image is accepted automatically only when the two models agree and Swin-Tiny confidence is at least the same threshold; otherwise the case is referred for human review.
 
-### Frozen test-set results
+The threshold is selected **using validation data only** and is frozen before the held-out test set is evaluated.
+
+### Primary held-out result
+
+For RACE-01, the threshold selected on validation was **tau = 0.90**. The 2,607-image test set was then evaluated without changing the policy.
+
+| Metric | RACE-01 |
+|---|---:|
+| Test images | 2,607 |
+| Automatic coverage | **88.80%** |
+| Selective accuracy | **96.41%** |
+| Referral rate | **11.20%** |
+| Automatic candidate-FN rate | **4.14%** |
+| Swin-Tiny invocation rate | **19.26%** |
+| Expected model-only latency | **3.94 ms/image** |
+| Estimated compute saving vs. always running both | **48.79%** |
+
+At the primary operating point, **2,315/2,607** test images were resolved automatically and **292/2,607** were referred. Swin-Tiny was invoked on **502/2,607** images.
+
+The threshold-selection source was validation only; the test labels were not used to select tau.
+
+### RACE operating frontier
+
+The pre-specified sensitivity grid shows the coverage-risk-compute trade-off:
+
+| tau | Coverage | Selective accuracy | Auto candidate-FN | Swin invoked |
+|---:|---:|---:|---:|---:|
+| 0.70 | 96.51% | 93.92% | 8.17% | 6.71% |
+| 0.75 | 95.13% | 94.15% | 7.36% | 8.78% |
+| 0.80 | 93.67% | 94.80% | 6.44% | 11.74% |
+| 0.85 | 91.37% | 95.68% | 5.06% | 15.30% |
+| **0.90** | **88.80%** | **96.41%** | **4.14%** | **19.26%** |
+| 0.95 | 84.12% | 97.54% | 2.30% | 26.12% |
+
+The **0.90 point is the primary result**, selected before test evaluation. Other thresholds are sensitivity analysis only.
+
+## Frozen backbone baselines
+
+RACE builds on a controlled comparison of the same frozen backbones:
 
 | Metric | Swin-Tiny | ResNet-50 |
 |---|---:|---:|
@@ -16,17 +54,19 @@ The study evaluates binary image-level classification of **landfill candidates v
 | F1-score | **89.21%** | 87.94% |
 | ROC-AUC | **97.84%** | 97.13% |
 
-The exact paired McNemar test gave **p = 0.2518**. The study therefore reports the differences descriptively rather than claiming statistically established overall architectural superiority.
+The exact paired McNemar test gave **p = 0.2518**, so the backbone comparison is reported descriptively rather than as statistically established overall architectural superiority.
 
 ### Inference efficiency
 
-Tesla T4, 224×224 input, batch size 16, interleaved paired benchmark:
+Measured on a Tesla T4 with 224×224 input and batch size 16:
 
 | Metric | Swin-Tiny | ResNet-50 |
 |---|---:|---:|
 | Parameters | 27.52M | 23.51M |
-| Mean latency/image | 4.651 ± 0.106 ms | 3.047 ± 0.030 ms |
-| Mean throughput | 215.1 ± 4.8 img/s | 328.3 ± 3.2 img/s |
+| Mean latency/image | 4.651 +/- 0.106 ms | 3.047 +/- 0.030 ms |
+| Mean throughput | 215.1 +/- 4.8 img/s | 328.3 +/- 3.2 img/s |
+
+RACE uses this measured efficiency difference to place ResNet-50 first and selectively escalate to Swin-Tiny.
 
 ## Experimental protocol
 
@@ -40,101 +80,73 @@ Locked split, seed 42:
 
 The repository contains experiment metadata and analysis outputs, but **not the AerialWaste image dataset or model checkpoints**.
 
+## RACE-01 reproducibility artifacts
+
+The finalized RACE experiment is maintained on the [race-x-holdout branch](../../tree/race-x-holdout).
+
+Key artifacts:
+
+- [Frozen validation policy](../../blob/race-x-holdout/experiments/RACE-01/validation/race_policy_config.json)
+- [Primary held-out result bundle](../../blob/race-x-holdout/experiments/RACE-01/test/race_primary_result_bundle.json)
+- [Held-out operating points](../../blob/race-x-holdout/experiments/RACE-01/test/race_test_operating_points.csv)
+- [Policy comparison](../../blob/race-x-holdout/experiments/RACE-01/test/race_policy_comparison.csv)
+- [Bootstrap 95% confidence intervals](../../blob/race-x-holdout/experiments/RACE-01/test/race_primary_bootstrap_ci.csv)
+- [Risk-coverage figure](../../blob/race-x-holdout/experiments/RACE-01/figures/race_risk_coverage.png)
+- [Compute-behavior figure](../../blob/race-x-holdout/experiments/RACE-01/figures/race_compute_behavior.png)
+
+The exact experiment protocol is documented in [experiments/RACE-01/README.md](../../blob/race-x-holdout/experiments/RACE-01/README.md).
+
 ## Repository contents
 
 ### 1. Experimental results and analysis
 
-- `experiments/` — frozen experimental results and reproducibility artifacts.
-  - `R50-01/` — ResNet-50 configuration, training history, test predictions, metrics, and confusion matrix.
-  - `locked_split_seed42/` — locked train/validation/test CSV splits and split configuration.
-  - `statistical_comparison/` — aligned predictions, bootstrap 95% confidence intervals, and paired McNemar analysis.
-  - `calibration_analysis/` — final calibration summary and reliability-bin data for both models.
-  - `efficiency_benchmark/` — final interleaved paired Tesla T4 inference benchmark.
-  - `error_analysis/` — disagreement analysis, error groups, class-wise error rates, metadata-based subgroup analysis, high-confidence errors, and qualitative-example metadata.
-  - `PROJECT_STATE_BEFORE_FULL_TRAINING.json` — project-state record from the controlled full-training stage.
+- experiments/R50-01/ — ResNet-50 configuration, training history, predictions, and metrics.
+- experiments/locked_split_seed42/ — locked train/validation/test CSV splits and split configuration.
+- experiments/statistical_comparison/ — aligned predictions, bootstrap confidence intervals, and paired McNemar analysis.
+- experiments/calibration_analysis/ — calibration summary and reliability-bin data for both models.
+- experiments/efficiency_benchmark/ — paired Tesla T4 inference benchmark.
+- experiments/error_analysis/ — structured disagreement and error analysis.
+- experiments/RACE-01/ — finalized adaptive-cascade validation/test artifacts, currently on the race-x-holdout branch.
 
 ### 2. Results and reproducibility documentation
 
-- `results/RESULTS.md` — human-readable summary of the frozen experimental findings.
-- `analysis/REPRODUCIBILITY.md` — reproducibility and methodological notes.
-- `experiments/README.md` — description of the frozen experiment artifacts and which outputs were superseded/removed.
-- `security/SECURITY.md` — public-repository security notes.
-- `CITATION.cff` — provisional citation metadata.
+- results/RESULTS.md — summary of the frozen backbone findings.
+- analysis/REPRODUCIBILITY.md — reproducibility and methodological notes.
+- experiments/README.md — description of the frozen experimental record.
+- security/SECURITY.md — public-repository security notes.
+- CITATION.cff — citation metadata.
 
 ### 3. Manuscript source
 
-- `paper/latex/main.tex` — current manuscript LaTeX source.
-- `paper/latex/references.bib` — editable bibliography source.
-- `paper/latex/tables/` — manuscript table source files.
-- `paper/latex/figures/` — final manuscript figures.
-- `paper/final/` — current manuscript PDF.
-- `paper/BINARY_ARTIFACTS_CHECKLIST.md` — record of the manuscript binary package.
+- paper/latex/main.tex — current manuscript LaTeX source.
+- paper/latex/references.bib — bibliography source.
+- paper/latex/tables/ — manuscript table sources.
+- paper/latex/figures/ — manuscript figures.
+- paper/final/ — current manuscript PDF.
 
-### 4. Project documentation
+The manuscript package is being revised to reflect the RACE contribution and the RACE-01 held-out evaluation.
 
-- `project_handoff/AerialWaste_Landfill_Research_Master_Handoff.docx` — canonical project handoff containing the detailed project history, experiment state, constraints, and continuation notes.
-
-## Current manuscript package
-
-The current manuscript package has now been uploaded to the repository.
-
-### Current draft paper
-
-`paper/final/A_Reproducible_Comparative_Evaluation_of_Swin_Tiny_and_ResNet_50_for_Landfill_Candidate_Classification_in_Aerial_Imagery.pdf`
-
-This is the **current research manuscript/draft version** as of the September 29, 2026 project update. It should not be treated as the final published version.
-
-### Current manuscript figures
-
-The following final figures are included under `paper/latex/figures/`:
-
-1. `Fig1_Experimental_Workflow_Final.png`
-2. `Fig2_Performance_Confusion_Final.png`
-3. `Fig3_Performance_Efficiency_Final.png`
-4. `Fig4_Error_Analysis_Final.png`
-5. `Fig5_Bootstrap_CI_Final.png`
-6. `Fig6_Representative_TP_TN_FP_FN_AerialWaste.png`
-
-The manuscript source, bibliography, tables, current PDF, and figure package are therefore represented in the repository together.
-
-## Important dataset provenance note
+## Dataset provenance
 
 The working **AerialWaste v3.0** release used in this project contains 11,703 images. The original AerialWaste dataset paper (Torres & Fraternali, *Scientific Data*, 2023) reports 10,434 images for the release described in that publication.
 
-This repository does not silently treat those releases as identical. The manuscript and project handoff should be consulted for the exact provenance/version information used for the experiments.
+This repository does not silently treat those releases as identical. The exact dataset/version provenance used for each experiment should be taken from the corresponding experiment metadata and project documentation.
 
-## Scientific scope
+## Scientific scope and evidence boundary
 
 This is an **image-level landfill-candidate screening** task. A positive prediction does not establish that a location is an illegal landfill or that a legal violation has occurred. The intended interpretation is prioritization for subsequent human inspection.
 
-The study is limited to the evaluated AerialWaste release and does not establish cross-geographic, cross-sensor, or cross-domain generalization.
+RACE-01 empirically evaluates the core adaptive cascade on the locked AerialWaste test population. Broader RACE-X extensions such as OOD detection, conformal uncertainty, metadata-aware routing, active learning, geographic/sensor external validation, and formal human-subject evaluation are **not claimed as experimentally validated by RACE-01**; they remain proposed or future extensions unless separately documented.
 
-## What will be updated later
+The current study does not establish cross-geographic, cross-sensor, or cross-domain generalization.
 
-The repository is intentionally being maintained as a **research record that evolves with the publication process**. The experimental results are frozen; later updates are expected to be publication and release metadata rather than new experiments.
+## Research status
 
-When the timing is appropriate, the following may be uploaded or updated:
+**Current status: RACE-01 experimental results frozen and backed up; manuscript revision in progress.**
 
-1. **Accepted/final manuscript**
-   - Replace the current draft PDF with the accepted or officially published manuscript version, as permitted by the venue.
-   - Keep the manuscript source synchronized with the final paper where appropriate.
+The original Swin-Tiny vs. ResNet-50 comparison remains a frozen baseline. The current research contribution is the risk-aware adaptive inference policy built on those frozen backbones.
 
-2. **Publication metadata**
-   - Update `CITATION.cff` with the final publication information and DOI.
-   - Update the README citation section once the paper has an official bibliographic record.
-
-3. **Final supplementary material**
-   - Add supplementary figures, tables, appendices, or additional reproducibility material if the target venue permits or requires public release.
-
-4. **Release/version information**
-   - Update the repository with the final paper/release version and any permanent archival identifier if one is created.
-   - If an official dataset/release citation or provenance document becomes available, link to it rather than copying the dataset into this repository.
-
-5. **Publication-specific repository cleanup**
-   - Replace files explicitly marked as draft/current with their final versions.
-   - Preserve the frozen experimental artifacts needed to reproduce the reported results.
-
-These future updates are **not new model experiments** unless explicitly documented as a separate research version. The current reported comparison and test-set results remain frozen.
+Future repository updates are expected to focus on manuscript, supplementary material, citation metadata, and release/version information unless a new experiment is explicitly documented as a separate research version.
 
 ## Reproducibility
 
@@ -144,18 +156,9 @@ See:
 - [Reproducibility notes](analysis/REPRODUCIBILITY.md)
 - [Canonical project handoff](project_handoff/AerialWaste_Landfill_Research_Master_Handoff.docx)
 - [Current manuscript source](paper/latex/main.tex)
-- [Bibliography source](paper/latex/references.bib)
-- [Binary artifact checklist](paper/BINARY_ARTIFACTS_CHECKLIST.md)
+- [RACE-01 holdout branch](../../tree/race-x-holdout)
 
-The dataset and large model artifacts are intentionally excluded. They must be obtained through their appropriate distribution channels.
-
-## Paper status
-
-**Current status: experimental results frozen; current manuscript package uploaded; publication/submission status may change as the paper moves through the review process.**
-
-The repository now contains the manuscript source, bibliography, tables, current PDF, figures, experimental results, statistical analyses, calibration analysis, efficiency benchmark, and structured error analysis.
-
-After acceptance/publication, the draft PDF and provisional citation metadata should be updated at the appropriate time. The repository should continue to avoid storing the full dataset, model checkpoints, archives, credentials, or secrets.
+The dataset, large model artifacts, archives, credentials, and secrets are intentionally excluded.
 
 ## Citation
 
